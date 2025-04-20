@@ -1,0 +1,18 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/UI%20Toolkit/Uss/Uss.uss?fileID=7433441132597879392&amp;guid=a0455ffa90b1cbd4fad18071d937a502&amp;type=3#Uss" />
+    <ui:VisualElement name="SetObject" style="flex-grow: 1; background-color: rgba(15, 22, 41, 0.91); background-image: none; -unity-background-image-tint-color: rgba(255, 255, 255, 0.67); width: 100%; height: 100%; flex-direction: column;">
+        <ui:Label tabindex="-1" text="説明　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　" display-tooltip-when-elided="true" name="Explanation" style="font-size: 20px; color: rgb(255, 255, 255); -unity-text-outline-color: rgba(118, 118, 118, 0.98); -unity-text-outline-width: 1px;" />
+        <ui:Label tabindex="-1" text="このエディターは設定したオブジェクトを&#10;いろいろな方法でコピーし配置できるエディターです。" display-tooltip-when-elided="true" name="MainText" style="height: 45px; color: rgb(255, 255, 255);" />
+        <ui:GroupBox style="height: 404px;">
+            <ui:Foldout text="クリック配置" value="false" style="color: rgb(255, 255, 255); height: 115px;">
+                <uie:ObjectField label="配置するオブジェクト" name="CopyObject" style="flex-direction: row;" />
+                <ui:IntegerField label="配置数" value="42" name="SetCount" />
+                <ui:Button text="クリックモード" display-tooltip-when-elided="true" name="ClickModeButton" selectable="false" />
+            </ui:Foldout>
+            <ui:Foldout text="指定配置" value="false" style="color: rgb(255, 255, 255); height: 100px;" />
+            <ui:Foldout text="壁均し" value="false" name="Foldout" style="color: rgb(255, 255, 255);">
+                <ui:Button text="均す" display-tooltip-when-elided="true" name="FixButton" />
+            </ui:Foldout>
+        </ui:GroupBox>
+    </ui:VisualElement>
+</ui:UXML>
