@@ -81,10 +81,13 @@ public class SetObject : EditorWindow
             {
 
                 Debug.Log("<color='red'>クリックモード開始</color>");
+                rootVisualElement.Q<Label>("ClickModeRunning").text = "稼動中";
+                
                 _isClickMode = true;
                 return;
             }
             Debug.Log("<color='red'>クリックモード終了</color>");
+            rootVisualElement.Q<Label>("ClickModeRunning").text = "停止中";
             _isClickMode = false;
 
         };
@@ -147,6 +150,7 @@ public class SetObject : EditorWindow
             return;
 
         }
+        // イベント取得しそれらを条件に検査
         _e = Event.current;
         if (_e.type != EventType.MouseDown || _e.button != 0 || _e == null || _e.alt)
         {
@@ -154,19 +158,17 @@ public class SetObject : EditorWindow
             return;
 
         }
+        // 設置個数を取得
         int setCount = rootVisualElement.Q<IntegerField>("SetCount").value;
-        Debug.Log(_e.type != EventType.MouseDown);
-        Debug.Log(_e.button != 0);
-        Debug.Log(_e == null);
-        Debug.Log(_e.alt);
+        // マウスカーソルの位置からRayを打つ
         Ray ray = HandleUtility.GUIPointToWorldRay(_e.mousePosition);
-        Debug.Log("Rayを打つ");
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             // ヒットした位置と法線を取得
             Vector3 hitPoint = hit.point;
             Vector3 normal = hit.normal;
-            Debug.Log(hit.collider);
+            // 生成して処理をし終わったオブジェクトを入れる
+            Transform oldInstanTrans = default;
             if (_copyObj != null)
             {
 
@@ -176,10 +178,28 @@ public class SetObject : EditorWindow
                     if (instance != null)
                     {
 
-                        Transform transform = hit.collider.transform;
-                        instance.transform.position = transform.position + (hit.normal * 2f * i);
-                        instance.transform.rotation = Quaternion.LookRotation(normal);
+                        Vector3 pos = hit.collider.transform.position;
+                        Vector3 scale = hit.collider.transform.localScale;
+                        //if (oldInstanTrans != null)
+                        //{
+
+                        //    pos = oldInstanTrans.position;
+                        //    scale = oldInstanTrans.localScale;
+
+                        //}
+                        // ノーマライズ方向のサイズのみ残す
+                        scale.x *= normal.x;
+                        scale.y *= normal.y;
+                        scale.z *= normal.z;
+                        Debug.Log(scale+"サイズ");
+                        Debug.Log(normal+"法線");
+                        // 法線側にループ毎に１ブロックずらす.
+                        // スケールが半径のため２倍にする
+                        pos += (scale * 2) * i;
+                        // ヒットしたオブジェクトの位置から、
+                        instance.transform.position = pos;
                         Undo.RegisterCreatedObjectUndo(instance, "Place Prefab");
+                        oldInstanTrans = instance.transform;
 
                     }
 

@@ -3,16 +3,21 @@
     <ui:VisualElement name="SetObject" style="flex-grow: 1; background-color: rgba(15, 22, 41, 0.91); background-image: none; -unity-background-image-tint-color: rgba(255, 255, 255, 0.67); width: 100%; height: 100%; flex-direction: column;">
         <ui:Label tabindex="-1" text="説明　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　" display-tooltip-when-elided="true" name="Explanation" style="font-size: 20px; color: rgb(255, 255, 255); -unity-text-outline-color: rgba(118, 118, 118, 0.98); -unity-text-outline-width: 1px;" />
         <ui:Label tabindex="-1" text="このエディターは設定したオブジェクトを&#10;いろいろな方法でコピーし配置できるエディターです。" display-tooltip-when-elided="true" name="MainText" style="height: 45px; color: rgb(255, 255, 255);" />
-        <ui:GroupBox style="height: 404px;">
+        <ui:ScrollView style="height: 358px;">
             <ui:Foldout text="クリック配置" value="false" style="color: rgb(255, 255, 255); height: 115px;">
                 <uie:ObjectField label="配置するオブジェクト" name="CopyObject" style="flex-direction: row;" />
-                <ui:IntegerField label="配置数" value="42" name="SetCount" />
+                <ui:IntegerField label="配置数" value="1" name="SetCount" />
                 <ui:Button text="クリックモード" display-tooltip-when-elided="true" name="ClickModeButton" selectable="false" />
+                <ui:Label tabindex="-1" text="稼働中" display-tooltip-when-elided="true" name="ClickModeRunning" />
             </ui:Foldout>
             <ui:Foldout text="指定配置" value="false" style="color: rgb(255, 255, 255); height: 100px;" />
-            <ui:Foldout text="壁均し" value="false" name="Foldout" style="color: rgb(255, 255, 255);">
+            <ui:Foldout text="壁均し" value="false" name="Foldout" style="color: rgb(255, 255, 255); height: 76px;">
                 <ui:Button text="均す" display-tooltip-when-elided="true" name="FixButton" />
             </ui:Foldout>
-        </ui:GroupBox>
+            <ui:Foldout text="ステージ調整" style="color: rgb(255, 255, 255);">
+                <ui:MinMaxSlider label="最小から最大の高さ" min-value="0" max-value="100" low-limit="0" high-limit="100" name="Ground_Height" />
+                <ui:Slider label="坂の間隔" value="0" high-value="100" name="Slope" />
+            </ui:Foldout>
+        </ui:ScrollView>
     </ui:VisualElement>
 </ui:UXML>
